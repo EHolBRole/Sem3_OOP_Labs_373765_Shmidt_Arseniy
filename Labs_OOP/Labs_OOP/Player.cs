@@ -12,11 +12,11 @@ namespace labs_OOP
 {
     public class Player
     {
-        public AbstactBankAccount BankAccount { get; private set; }
+        public IBankAccount BankAccount { get; private set; }
 
         public AbstractCasinoBankAccount CasinoBankAccount { get; private set; }
 
-        public Player(AbstactBankAccount abstactBankAccount, AbstractCasinoBankAccount abstractCasinoBankAccount)
+        public Player(IBankAccount abstactBankAccount, AbstractCasinoBankAccount abstractCasinoBankAccount)
         {
             BankAccount = abstactBankAccount;
 

@@ -10,7 +10,7 @@ namespace Labs_OOP.Money.BankAccountFabric
 {
     public class OnlineBankFabric : AbstractBankAccountFabric
     {
-        public override AbstactBankAccount Create()
+        public override IBankAccount Create()
         {
             return new OnlineBankAccount();
         }

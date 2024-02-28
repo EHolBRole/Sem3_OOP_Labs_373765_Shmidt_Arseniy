@@ -12,9 +12,9 @@ namespace OOP_Labs.Casino
     {
         private Deck _deck;
 
-        public Dealer(AbstractCardGeneratorStrategy abstractCardGeneratorStrategy)
+        public Dealer(Deck deck)
         {
-            this._deck = new Deck(abstractCardGeneratorStrategy);
+            this._deck = deck;
             ShuffleDeck();
         }
 
@@ -45,9 +45,9 @@ namespace OOP_Labs.Casino
             return card;
         }
 
-        public void NewDeck(AbstractCardGeneratorStrategy abstractCardGeneratorStrategy)
+        public void NewDeck(Deck deck)
         {
-            this._deck = new Deck(abstractCardGeneratorStrategy);
+            this._deck = deck;
             ShuffleDeck();
         }
     }

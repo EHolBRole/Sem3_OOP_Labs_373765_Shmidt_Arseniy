@@ -12,7 +12,7 @@ namespace OOP_Labs.Cards
     {
         public List<Card> cards = new List<Card>();
 
-        protected AbstractCardGeneratorStrategy cardGeneratorCommand;
+        protected AbstractCardGeneratorStrategy cardGeneratorStrategy;
 
         public Deck(AbstractCardGeneratorStrategy cardGeneratorStrategy)
         {

@@ -18,4 +18,12 @@ namespace OOP_Labs.Cards
         }
     }
 
+    public enum CardSuit
+    {
+        Clubs,
+        Diamonds,
+        Hearts,
+        Spades
+    }
+
 }

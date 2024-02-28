@@ -19,7 +19,7 @@ namespace OOP_Labs.Tests.Lab1Tests
         public Lab1Tests()
         {
 
-            this._dealer = new Dealer(new BlackJackCardGeneratorStrategy());
+            this._dealer = new Dealer(new Deck(new BlackJackCardGeneratorStrategy()));
 
             this._expectedDeck = new Deck(new BlackJackCardGeneratorStrategy());
 

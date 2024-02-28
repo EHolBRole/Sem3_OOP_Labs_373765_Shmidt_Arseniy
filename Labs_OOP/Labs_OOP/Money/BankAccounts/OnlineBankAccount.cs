@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Labs.Money.BankAccounts
 {
-    public class OnlineBankAccount : AbstactBankAccount
+    public class OnlineBankAccount : AbstractBankAccount
     {
         private const double BASE_MONEY = 0;
         public OnlineBankAccount()

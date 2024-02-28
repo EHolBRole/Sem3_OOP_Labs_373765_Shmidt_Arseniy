@@ -4,11 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OOP_Labs.Cards.CardFabrics
+namespace Labs_OOP
 {
-    public abstract class AbstractDeckFabric
+    internal class Programm
     {
+        public static void Main()
+        {
 
-        public abstract AbstractDeck Create();
+        }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using OOP_Labs.Money.CasinoBankAccount;
 using OOP_Labs.Money.Commands.BankCommands;
-using OOP_Labs.Money.PlayerFabric;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +16,11 @@ namespace labs_OOP
 
         public AbstractCasinoBankAccount CasinoBankAccount { get; private set; }
 
-        public Player(AbstractPlayerFactory abstractPlayerFactory)
+        public Player(AbstactBankAccount abstactBankAccount, AbstractCasinoBankAccount abstractCasinoBankAccount)
         {
-            BankAccount = abstractPlayerFactory.CreateBankAccount();
+            BankAccount = abstactBankAccount;
 
-            CasinoBankAccount = abstractPlayerFactory.CreateCasinoBankAccount();
+            CasinoBankAccount = abstractCasinoBankAccount;
         }
 
         public bool PerformeOperation(ICommand bankCommand, double value)

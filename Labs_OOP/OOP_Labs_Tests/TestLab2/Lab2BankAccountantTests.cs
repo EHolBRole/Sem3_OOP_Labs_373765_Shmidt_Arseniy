@@ -1,7 +1,8 @@
 ﻿using labs_OOP;
 using labs_OOP.Casino;
+using Labs_OOP.Money.BankAccountFabric;
+using Labs_OOP.Money.CasinoBankAccountFabric;
 using OOP_Labs.Money.Commands.BankCommands;
-using OOP_Labs.Money.PlayerFabric;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,12 @@ namespace OOP_Labs.Tests.TestLab2
     
     public class Lab2BankAccountantTests
     {
-        public AbstractPlayerFactory playerFactory;
         public Player player;
         public Lab2BankAccountantTests()
         {
-
-            playerFactory = new BlackJackNormalPlayerFactory();
-            this.player = new Player(playerFactory);
+            var bankFabric = new OnlineBankFabric();
+            var casinoBankFabric = new BlackJackCasinoBankAccountFabric();
+            this.player = new Player(bankFabric.Create(), casinoBankFabric.Create());
         }
         [Fact]
         public void BankAccountant_CreditMoneyToPlayer_CreditedMoneyToPlayer()

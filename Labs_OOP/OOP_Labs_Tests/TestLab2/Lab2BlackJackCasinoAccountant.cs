@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OOP_Labs.Money.PlayerFabric;
 using OOP_Labs.Money.Commands.CasinoBankCommands;
+using Labs_OOP.Money.BankAccountFabric;
+using Labs_OOP.Money.CasinoBankAccountFabric;
 
 namespace OOP_Labs.Tests.TestLab2
 {
@@ -15,14 +16,11 @@ namespace OOP_Labs.Tests.TestLab2
 
         public Player player;
 
-        public AbstractPlayerFactory playerFactory;
-
         public Lab2BlackJackCasinoAccountant()
         {
-
-            this.playerFactory = new BlackJackNormalPlayerFactory();
-
-            this.player = new Player(playerFactory);
+            var bankFabric = new OnlineBankFabric();
+            var casinoBankFabric = new BlackJackCasinoBankAccountFabric();
+            this.player = new Player(bankFabric.Create(), casinoBankFabric.Create());
         }
 
         [Fact]

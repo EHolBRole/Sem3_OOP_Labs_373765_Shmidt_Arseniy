@@ -4,17 +4,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using OOP_Labs.Cards;
-using OOP_Labs.Cards.CardFabrics;
+using OOP_Labs.Cards.CardGeneratorCommands;
 
 namespace OOP_Labs.Casino
 {
     public class Dealer
     {
-        private AbstractDeck _deck;
+        private Deck _deck;
 
-        public Dealer(AbstractDeckFabric deckFabric)
+        public Dealer(AbstractCardGeneratorStrategy abstractCardGeneratorStrategy)
         {
-            this._deck = deckFabric.Create();
+            this._deck = new Deck(abstractCardGeneratorStrategy);
             ShuffleDeck();
         }
 
@@ -33,7 +33,7 @@ namespace OOP_Labs.Casino
             _deck.cards = tempList;
         }
 
-        public AbstractDeck GetDeck()
+        public Deck GetDeck()
         {
             return _deck;
         }
@@ -45,9 +45,9 @@ namespace OOP_Labs.Casino
             return card;
         }
 
-        public void NewDeck(AbstractDeckFabric deckFabric)
+        public void NewDeck(AbstractCardGeneratorStrategy abstractCardGeneratorStrategy)
         {
-            this._deck = deckFabric.Create();
+            this._deck = new Deck(abstractCardGeneratorStrategy);
             ShuffleDeck();
         }
     }

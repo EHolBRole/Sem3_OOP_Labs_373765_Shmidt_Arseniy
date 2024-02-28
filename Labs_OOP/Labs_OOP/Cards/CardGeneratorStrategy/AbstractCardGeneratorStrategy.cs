@@ -8,6 +8,6 @@ namespace OOP_Labs.Cards.CardGeneratorCommands
 {
     public abstract class AbstractCardGeneratorStrategy
     {
-        public abstract void Execute(AbstractDeck deck);
+        public abstract List<Card> Execute();
     }
 }

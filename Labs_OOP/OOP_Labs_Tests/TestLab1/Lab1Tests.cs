@@ -5,27 +5,25 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OOP_Labs.Cards;
-using OOP_Labs.Cards.CardFabrics;
+using OOP_Labs.Cards.CardGeneratorCommands;
 using OOP_Labs.Casino;
 
 namespace OOP_Labs.Tests.Lab1Tests
 {
     public class Lab1Tests
     {
-        private BlackJackDeckFabric _deckFabric;
         private Dealer _dealer;
-        private AbstractDeck _actualDeck;
-        private AbstractDeck _expectedDeck;
+        private Deck _actualDeck;
+        private Deck _expectedDeck;
         
         public Lab1Tests()
         {
-            this._deckFabric = new BlackJackDeckFabric();
 
-            this._dealer = new Dealer(_deckFabric);
+            this._dealer = new Dealer(new BlackJackCardGeneratorStrategy());
 
-            this._expectedDeck = _deckFabric.Create();
+            this._expectedDeck = new Deck(new BlackJackCardGeneratorStrategy());
 
-            this._actualDeck = _deckFabric.Create();
+            this._actualDeck = new Deck(new BlackJackCardGeneratorStrategy());
         }
 
         [Fact]
@@ -51,7 +49,7 @@ namespace OOP_Labs.Tests.Lab1Tests
             var actualDeckJson = JsonConvert.SerializeObject(_actualDeck);
 
             Assert.NotNull(_actualDeck);
-            Assert.IsAssignableFrom<AbstractDeck>(_actualDeck);
+            Assert.IsAssignableFrom<Deck>(_actualDeck);
             Assert.Equal(expectDeckJson, actualDeckJson);
         }
 
@@ -64,7 +62,7 @@ namespace OOP_Labs.Tests.Lab1Tests
             _actualDeck = _dealer.GetDeck();
 
             Assert.NotNull(_actualDeck);
-            Assert.IsAssignableFrom<AbstractDeck>(_actualDeck);
+            Assert.IsAssignableFrom<Deck>(_actualDeck);
             Assert.Equal(51, _actualDeck.cards.Count);
         }
     }

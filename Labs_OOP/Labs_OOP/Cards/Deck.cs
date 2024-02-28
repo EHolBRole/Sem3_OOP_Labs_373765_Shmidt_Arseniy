@@ -8,21 +8,16 @@ using System.Threading.Tasks;
 
 namespace OOP_Labs.Cards
 {
-    public abstract class AbstractDeck
+    public class Deck
     {
         public List<Card> cards = new List<Card>();
 
         protected AbstractCardGeneratorStrategy cardGeneratorCommand;
 
-        public AbstractDeck(AbstractCardGeneratorStrategy cardGeneratorCommand)
+        public Deck(AbstractCardGeneratorStrategy cardGeneratorStrategy)
         {
-            this.cardGeneratorCommand = cardGeneratorCommand;
-            GenerateDeck();
+            cards = cardGeneratorStrategy.Execute();
         }
 
-        public void GenerateDeck()
-        {
-            cardGeneratorCommand.Execute(this);
-        }
     }
 }

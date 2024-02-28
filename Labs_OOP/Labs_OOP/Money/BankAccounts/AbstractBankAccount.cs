@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace labs_OOP.Money
 {
-    public abstract class AbstactBankAccount
+    public abstract class AbstractBankAccount
     {
         public double money;
     }

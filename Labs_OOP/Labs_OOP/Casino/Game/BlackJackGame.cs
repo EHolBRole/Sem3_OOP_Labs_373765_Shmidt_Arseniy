@@ -24,32 +24,32 @@ namespace Labs_OOP.Casino.Game
 
         private Player _player;
 
-        private Hand _dealerHand;
-
-        private List<Hand> _hands;
 
         private int _numberOfHands;
+
+        public List<Hand> Hands { get; private set; }
+        public Hand DealerHand { get; private set; }
 
         public BlackJackGame(Player player, int numberOfHands, int initialBet)
         {
             this._player = player;
 
-            this._dealer = new Dealer(new BlackJackCardGeneratorStrategy());            this._numberOfHands = numberOfHands;
+            this._dealer = new Dealer(new Deck(new BlackJackCardGeneratorStrategy()));            this._numberOfHands = numberOfHands;
 
-            this._hands = new List<Hand>();
-            this._dealerHand = new Hand(HandStatus.Dealer, 0);
+            this.Hands = new List<Hand>();
+            this.DealerHand = new Hand(HandStatus.Dealer, 0);
 
             for (int i = 0; i < _numberOfHands; i++)
             {
-                _hands.Add(new Hand(HandStatus.More, initialBet));
+                Hands.Add(new Hand(HandStatus.More, initialBet));
             }
 
         }
 
         public bool PlayGame()
         {
-            if (_dealerHand.currentValue < 17)
-                _dealerHand.cards.Add(_dealer.PopCard());
+            if (DealerHand.currentValue < 17)
+                DealerHand.cards.Add(_dealer.PopCard());
             else
             {
                 FinishGame();
@@ -57,15 +57,15 @@ namespace Labs_OOP.Casino.Game
             }
             GiveCards();
             Console.WriteLine("Player choises");
-            CalculateHands(_hands);
-            CalculateHands(new List<Hand>() { _dealerHand });
+            CalculateHands(Hands);
+            CalculateHands(new List<Hand>() { DealerHand });
             PlayGame();
             return false;
         }
 
         public void GiveCards()
         {
-            foreach (var hand in _hands)
+            foreach (var hand in Hands)
             {
                 if (hand.status == HandStatus.More)
                     hand.cards.Add(_dealer.PopCard());
@@ -101,40 +101,40 @@ namespace Labs_OOP.Casino.Game
 
         public void ChangeHandStatus(int handID, HandStatus handStatus)
         {
-            _hands[handID].status = handStatus;
+            Hands[handID].status = handStatus;
         }
 
         public void FinishGame()
         {
-            CalculateHands(new List<Hand>() { _dealerHand });
+            CalculateHands(new List<Hand>() { DealerHand });
 
-            foreach (var hand in _hands)
+            foreach (var hand in Hands)
             {
                 if (hand.currentValue == BLACK_JACK)
                 {
                     new BlackJackCasinoAccountant(_player, new BlackJackPayBlackJackCommand()).Execute(hand.bet);
                     Console.WriteLine(_player.CasinoBankAccount.chips);
                 }
-                else if (hand.currentValue > _dealerHand.currentValue && hand.currentValue <= BLACK_JACK)
+                else if (hand.currentValue > DealerHand.currentValue && hand.currentValue <= BLACK_JACK)
                 {
 
                     new BlackJackCasinoAccountant(_player, new BlackJackPayWinCommand()).Execute(hand.bet);
                     Console.WriteLine(_player.CasinoBankAccount.chips);
                 }
-                else if (hand.currentValue < _dealerHand.currentValue && hand.currentValue <= BLACK_JACK)
+                else if (hand.currentValue < DealerHand.currentValue && hand.currentValue <= BLACK_JACK)
                 {
                     new BlackJackCasinoAccountant(_player, new BlackJackPayLooseCommand()).Execute(hand.bet);
                     Console.WriteLine(_player.CasinoBankAccount.chips);
                 }
-                else if (hand.currentValue > BLACK_JACK && _dealerHand.currentValue <= BLACK_JACK)
+                else if (hand.currentValue > BLACK_JACK && DealerHand.currentValue <= BLACK_JACK)
                 {
 
                     new BlackJackCasinoAccountant(_player, new BlackJackPayLooseCommand()).Execute(hand.bet);
                     Console.WriteLine(_player.CasinoBankAccount.chips);
                 }
-                else if (_dealerHand.currentValue > BLACK_JACK)
+                else if (DealerHand.currentValue > BLACK_JACK)
                 {
-                    if (hand.currentValue > _dealerHand.currentValue)
+                    if (hand.currentValue > DealerHand.currentValue)
                     {
                         new BlackJackCasinoAccountant(_player, new BlackJackPayLooseCommand()).Execute(hand.bet);
                         Console.WriteLine(_player.CasinoBankAccount.chips);

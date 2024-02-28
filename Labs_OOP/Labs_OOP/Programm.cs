@@ -29,7 +29,14 @@ namespace Labs_OOP
             bankAccountant.Execute(100000);
             BlackJackGame game = new BlackJackGame(player, 8, 50);
 
-            game.PlayGame();
+            // game.PlayGame();
+
+            Console.WriteLine("||||||||||||||||||");
+
+
+            BlackJackGame game2 = new BlackJackGame(player, 4, 100);
+
+            game2.PlayGame();
 
             Console.ReadLine();
         }

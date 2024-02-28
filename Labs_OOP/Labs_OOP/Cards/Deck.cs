@@ -12,8 +12,6 @@ namespace OOP_Labs.Cards
     {
         public List<Card> cards = new List<Card>();
 
-        protected AbstractCardGeneratorStrategy cardGeneratorCommand;
-
         public Deck(AbstractCardGeneratorStrategy cardGeneratorStrategy)
         {
             cards = cardGeneratorStrategy.Execute();

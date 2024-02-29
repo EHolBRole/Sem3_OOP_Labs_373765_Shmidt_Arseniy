@@ -9,6 +9,6 @@ namespace Labs_OOP.Money.BankAccountFabric
 {
     public abstract class AbstractBankAccountFabric
     {
-        public abstract IBankAccount Create();
+        public abstract AbstractBankAccount Create();
     }
 }

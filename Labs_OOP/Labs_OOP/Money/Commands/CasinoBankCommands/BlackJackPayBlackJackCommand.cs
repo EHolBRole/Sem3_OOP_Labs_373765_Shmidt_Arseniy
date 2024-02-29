@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace OOP_Labs.Money.Commands.CasinoBankCommands
 {
-    public class BlackJackPayBlackJackCommand : AbstractCasinoBankCommand
+    public class BlackJackPayBlackJackCommand : AbstractCasinoBankCommand<BlackJackHandStatus>
     {
         public override bool Execute(Player<BlackJackHandStatus> player, double value)
         {

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace labs_OOP.Casino
 {
@@ -12,9 +13,9 @@ namespace labs_OOP.Casino
     {
         private Player<BlackJackHandStatus> _player;
         
-        private AbstractCasinoBankCommand _casinoBankCommand;
+        private AbstractCasinoBankCommand<BlackJackHandStatus> _casinoBankCommand;
 
-        public BlackJackCasinoAccountant(Player<BlackJackHandStatus> player, AbstractCasinoBankCommand abstractCasinoBankCommand)
+        public BlackJackCasinoAccountant(Player<BlackJackHandStatus> player, AbstractCasinoBankCommand<BlackJackHandStatus> abstractCasinoBankCommand)
         {
             this._player = player;
 

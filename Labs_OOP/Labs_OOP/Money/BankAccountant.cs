@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace labs_OOP.Casino
 {
-    public class BankAccountant
+    public class BankAccountant<T>
     {
-        private Player<BlackJackHandStatus> _player;
+        private Player<T> _player;
 
-        private AbstractBankCommand<BlackJackHandStatus> _abstractBankCommand;
+        private AbstractBankCommand<T> _abstractBankCommand;
 
-        public BankAccountant(Player<BlackJackHandStatus> player, AbstractBankCommand<BlackJackHandStatus> abstractBankCommand)
+        public BankAccountant(Player<T> player, AbstractBankCommand<T> abstractBankCommand)
         {
             this._player = player;
             this._abstractBankCommand = abstractBankCommand;

@@ -23,7 +23,7 @@ namespace Labs_OOP
             BlackJackCasinoBankAccountFabric casinoBankFabric = new BlackJackCasinoBankAccountFabric();
             List<Player<BlackJackHandStatus>> player = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create()) };
 
-            BankAccountant bankAccountant = new BankAccountant(player[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
+            BankAccountant<BlackJackHandStatus> bankAccountant = new BankAccountant<BlackJackHandStatus>(player[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
 
             player[0].CasinoBankAccount.chips = 1000;
 

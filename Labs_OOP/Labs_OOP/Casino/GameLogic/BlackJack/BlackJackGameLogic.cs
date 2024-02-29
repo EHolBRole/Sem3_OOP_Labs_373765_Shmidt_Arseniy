@@ -23,7 +23,7 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
         private const int DEALER_MAX_CARD_VALUE = 17;
 
         private int _numberOfHands;
-        private bool _betMade;
+        private bool _betMade; // Delete _betMade
 
 
         public Hand<BlackJackHandStatus> DealerHand { get; private set; }
@@ -151,7 +151,6 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
                 }
                 else if (hand.currentValue > BLACK_JACK)
                 {
-
                     new BlackJackCasinoAccountant(player, new BlackJackPayLooseCommand()).Execute(hand.bet);
                     Console.WriteLine(player.CasinoBankAccount.chips);
                 }

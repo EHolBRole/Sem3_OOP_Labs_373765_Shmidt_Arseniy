@@ -1,5 +1,6 @@
 ﻿using labs_OOP;
 using labs_OOP.Casino;
+using Labs_OOP.Casino.GameLogic;
 using Labs_OOP.Casino.GameLogic.BlackJack;
 using Labs_OOP.Money.BankAccountFabric;
 using Labs_OOP.Money.CasinoBankAccountFabric;
@@ -20,9 +21,9 @@ namespace Labs_OOP
         {
             OnlineBankFabric bankFabric = new OnlineBankFabric();
             BlackJackCasinoBankAccountFabric casinoBankFabric = new BlackJackCasinoBankAccountFabric();
-            List<Player> player = new List<Player>() { new Player(bankFabric.Create(), casinoBankFabric.Create()) };
+            List<Player<BlackJackHandStatus>> player = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create()) };
 
-            BankAccountant bankAccountant = new BankAccountant(player[0], new CreditMoneyToPlayerCommand());
+            BankAccountant bankAccountant = new BankAccountant(player[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
 
             player[0].CasinoBankAccount.chips = 1000;
 

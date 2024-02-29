@@ -9,10 +9,11 @@ using OOP_Labs.Money.Commands;
 using labs_OOP.Money;
 using Labs_OOP.Casino.GameLogic;
 using Labs_OOP.Casino.GameLogic.BlackJack.BlackJackCommands;
+using Labs_OOP.Casino.GameLogic.BlackJack;
 
 namespace labs_OOP
 {
-    public class Player
+    public class Player<T>
     {
         public bool isPlaying;
 
@@ -28,12 +29,12 @@ namespace labs_OOP
             CasinoBankAccount = abstractCasinoBankAccount;
         }
 
-        public bool PerformeOperation(ICommand bankCommand, double value)
+        public bool PerformeOperation(ICommand<T> bankCommand, double value)
         {
             return bankCommand.Execute(this, value);
         }
 
-        public bool PerformeGameOperation(IGameCommand gameCommand, AbstractGameLogic gameLogic)
+        public bool PerformeGameOperation(IGameCommand<T> gameCommand, AbstractGameLogic<T> gameLogic)
         {
             gameCommand.Execute(gameLogic);
             return true;

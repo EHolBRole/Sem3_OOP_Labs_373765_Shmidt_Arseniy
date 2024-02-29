@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace OOP_Labs.Money.Commands.BankCommands
 {
-    public abstract class AbstractBankCommand : ICommand
+    public abstract class AbstractBankCommand<T> : ICommand<T>
     {
-        public abstract bool Execute(Player player, double value);
+        public abstract bool Execute(Player<T> player, double value);
     }
 }

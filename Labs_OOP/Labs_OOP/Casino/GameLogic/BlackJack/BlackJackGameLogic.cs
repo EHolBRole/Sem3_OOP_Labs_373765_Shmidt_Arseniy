@@ -14,29 +14,30 @@ using System.Threading.Tasks;
 
 namespace Labs_OOP.Casino.GameLogic.BlackJack
 {
-    public class BlackJackGameLogic : AbstractGameLogic
+    public class BlackJackGameLogic : AbstractGameLogic<BlackJackHandStatus>
     {
         private const int HIGH_VALUE_CARD_COST = 10;
         private const int ACE_MAX_CARD_COST = 11;
         private const int ACE_MIN_CARD_COST = 1;
         private const int BLACK_JACK = 21;
+        private const int DEALER_MAX_CARD_VALUE = 17;
 
         private int _numberOfHands;
         private bool _betMade;
 
 
-        public BlackJackHand DealerHand { get; private set; }
+        public Hand<BlackJackHandStatus> DealerHand { get; private set; }
 
-        public BlackJackGameLogic(List<Player> players, int numberOfHands, int initialBet)
+        public BlackJackGameLogic(List<Player<BlackJackHandStatus>> players, int numberOfHands, int initialBet)
             : base(players, new BlackJackCardGeneratorStrategy())
         {
             _numberOfHands = numberOfHands;            foreach (var player in players)
             {
                 for (int hand = 0; hand < numberOfHands; hand++)
                 {
-                    if (new BankAccountant(player, new CheckBalanceCommand()).Execute(initialBet))
+                    if (new BankAccountant(player, new CheckBalanceCommand<BlackJackHandStatus>()).Execute(initialBet))
                     {
-                        new BankAccountant(player, new CreditMoneyFromPlayerCommand()).Execute(initialBet);
+                        new BankAccountant(player, new CreditMoneyFromPlayerCommand< BlackJackHandStatus >()).Execute(initialBet);
                         _betMade = true;
                     }
                     else
@@ -46,11 +47,13 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
                 }
             }
 
-            DealerHand = new BlackJackHand(BlackJackHandStatus.Dealer, 0);
+            DealerHand = new Hand<BlackJackHandStatus>(BlackJackHandStatus.Dealer, 0);
+
+            Hands = new List<Hand<BlackJackHandStatus>>();
 
             for (int i = 0; i < _numberOfHands; i++)
             {
-                Hands.Add(new BlackJackHand(BlackJackHandStatus.More, initialBet));
+                Hands.Add(new Hand<BlackJackHandStatus>(BlackJackHandStatus.More, initialBet));
             }
 
         }
@@ -63,7 +66,7 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
                 {
                     if (!player.isPlaying)
                         continue;
-                    if (DealerHand.currentValue < 17)
+                    if (DealerHand.currentValue < DEALER_MAX_CARD_VALUE)
                         DealerHand.cards.Add(_dealer.PopCard());
                     else
                     {
@@ -74,7 +77,7 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
                     player.PerformeGameOperation(new BlackJackMakePlayerMoveCommand(), this);
                     GiveCards();
                     CalculateHands(Hands);
-                    CalculateHands(new List<BlackJackHand>() { DealerHand });
+                    CalculateHands(new List<Hand<BlackJackHandStatus>>() { DealerHand });
                     PlayGame();
                  }
                 return true;
@@ -92,7 +95,7 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
             }
         }
 
-        public void CalculateHands(List<BlackJackHand> hands)
+        public void CalculateHands(List<Hand<BlackJackHandStatus>> hands)
         {
             foreach (var hand in hands)
             {
@@ -124,9 +127,9 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
             Hands[handID].status = handStatus;
         }
 
-        public void FinishGame(Player player)
+        public void FinishGame(Player<BlackJackHandStatus> player)
         {
-            CalculateHands(new List<BlackJackHand>() { DealerHand });
+            CalculateHands(new List<Hand<BlackJackHandStatus>>() { DealerHand });
 
             foreach (var hand in Hands)
             {

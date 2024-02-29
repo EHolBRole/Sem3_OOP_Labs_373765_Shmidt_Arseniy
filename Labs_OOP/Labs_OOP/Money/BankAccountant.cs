@@ -1,4 +1,5 @@
-﻿using OOP_Labs.Money.Commands.BankCommands;
+﻿using Labs_OOP.Casino.GameLogic;
+using OOP_Labs.Money.Commands.BankCommands;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace labs_OOP.Casino
 {
     public class BankAccountant
     {
-        private Player _player;
+        private Player<BlackJackHandStatus> _player;
 
-        private AbstractBankCommand _abstractBankCommand;
+        private AbstractBankCommand<BlackJackHandStatus> _abstractBankCommand;
 
-        public BankAccountant(Player player, AbstractBankCommand abstractBankCommand)
+        public BankAccountant(Player<BlackJackHandStatus> player, AbstractBankCommand<BlackJackHandStatus> abstractBankCommand)
         {
             this._player = player;
             this._abstractBankCommand = abstractBankCommand;

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Labs_OOP.Casino.GameLogic
 {
-    public interface IGameCommand
+    public interface IGameCommand<T>
     {
-        public bool Execute(AbstractGameLogic game);
+        public bool Execute(AbstractGameLogic<T> game);
     }
 }

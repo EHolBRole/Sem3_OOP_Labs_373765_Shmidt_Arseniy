@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Labs_OOP.Casino.GameLogic.BlackJack.BlackJackCommands
 {
-    public class BlackJackMakePlayerMoveCommand : IGameCommand
+    public class BlackJackMakePlayerMoveCommand : IGameCommand<BlackJackHandStatus>
     {
         BlackJackUserInputHandler userInputHandler;
 
@@ -15,7 +15,7 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack.BlackJackCommands
             userInputHandler = new BlackJackUserInputHandler();
         }
 
-        public bool Execute(AbstractGameLogic game)
+        public bool Execute(AbstractGameLogic<BlackJackHandStatus> game)
         {
             foreach (var hand in game.Hands)
             {

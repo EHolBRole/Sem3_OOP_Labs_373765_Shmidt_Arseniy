@@ -1,5 +1,6 @@
 ﻿using labs_OOP;
 using labs_OOP.Casino;
+using Labs_OOP.Casino.GameLogic;
 using Labs_OOP.Money.BankAccountFabric;
 using Labs_OOP.Money.CasinoBankAccountFabric;
 using OOP_Labs.Money.Commands.BankCommands;
@@ -11,20 +12,20 @@ using System.Threading.Tasks;
 
 namespace OOP_Labs.Tests.TestLab2
 {
-    
+
     public class Lab2BankAccountantTests
     {
-        public Player player;
+        public Player<BlackJackHandStatus> player;
         public Lab2BankAccountantTests()
         {
             var bankFabric = new OnlineBankFabric();
             var casinoBankFabric = new BlackJackCasinoBankAccountFabric();
-            this.player = new Player(bankFabric.Create(), casinoBankFabric.Create());
+            this.player = new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create());
         }
         [Fact]
         public void BankAccountant_CreditMoneyToPlayer_CreditedMoneyToPlayer()
         {
-            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand());
+            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
             bankAccountant.Execute(100);
 
             bankAccountant.Execute(-100);
@@ -40,11 +41,11 @@ namespace OOP_Labs.Tests.TestLab2
         [Fact]
         public void BankAccountant_CreditMoneyFromPlayer_CreditedMoneyFromPlayer()
         {
-            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand());
+            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
 
             bankAccountant.Execute(10000);
 
-            bankAccountant = new BankAccountant(player, new CreditMoneyFromPlayerCommand());
+            bankAccountant = new BankAccountant(player, new CreditMoneyFromPlayerCommand<BlackJackHandStatus>());
 
             bankAccountant.Execute(100);
             bankAccountant.Execute(-100);
@@ -60,11 +61,11 @@ namespace OOP_Labs.Tests.TestLab2
 
         public void BankAccountant_CheckBalance_CorrectlyCheckedBalance()
         {
-            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand());
+            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
 
             bankAccountant.Execute(100);
 
-            bankAccountant = new BankAccountant(player, new CheckBalanceCommand());
+            bankAccountant = new BankAccountant(player, new CheckBalanceCommand<BlackJackHandStatus>());
 
             bool test1 = bankAccountant.Execute(100);
             bool test2 = bankAccountant.Execute(5);

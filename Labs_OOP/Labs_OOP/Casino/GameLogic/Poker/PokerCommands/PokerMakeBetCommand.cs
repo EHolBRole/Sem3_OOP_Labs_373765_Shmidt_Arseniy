@@ -19,12 +19,16 @@ namespace Labs_OOP.Casino.GameLogic.Poker.PokerCommands
                 int intUserInput = 50; //int.Parse(new UserInputHandler().GetUserInput()); Default input for modelling poker
                 foreach (var player in game._players)
                 {
-                    if (player.playerSeat == playerSit)
+                    if (player.playerSeat == playerSit) // Make validation for check, raise and call;
                     {
-                        new BankAccountant(player, new CheckBalanceCommand())
+                        if (new BankAccountant<PokerHandStatus>(player, new CheckBalanceCommand<PokerHandStatus>()).Execute(intUserInput))
+                        {
+                            new BankAccountant<PokerHandStatus>(player, new CreditMoneyFromPlayerCommand<PokerHandStatus>()).Execute(intUserInput);
+                            game.Hands[playerSit - 1].bet += intUserInput;
+                        }
+
                     }
                 }
-                game.Hands[playerSit - 1].bet += intUserInput;
             }
             catch
             {

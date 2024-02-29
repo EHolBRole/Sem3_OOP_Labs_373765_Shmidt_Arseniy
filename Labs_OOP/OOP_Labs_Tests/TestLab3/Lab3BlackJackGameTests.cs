@@ -23,7 +23,7 @@ namespace OOP_Labs.Tests.TestLab3
 
         public List<Player<BlackJackHandStatus>> player;
 
-        public BankAccountant bankAccountant;
+        public BankAccountant<BlackJackHandStatus> bankAccountant;
 
         public BlackJackGameLogic blackJackGame;
 
@@ -33,7 +33,7 @@ namespace OOP_Labs.Tests.TestLab3
             casinoBankFabric = new BlackJackCasinoBankAccountFabric();
             player = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(1, bankFabric.Create(), casinoBankFabric.Create()) };
 
-            bankAccountant = new BankAccountant(player[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
+            bankAccountant = new BankAccountant<BlackJackHandStatus>(player[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
             player[0].BankAccount.money = 1000;
             player[0].CasinoBankAccount.chips = 1000;
 
@@ -45,7 +45,7 @@ namespace OOP_Labs.Tests.TestLab3
         {
             List<Player<BlackJackHandStatus>> testPlayer = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(1, bankFabric.Create(), casinoBankFabric.Create()) };
 
-            bankAccountant = new BankAccountant(testPlayer[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
+            bankAccountant = new BankAccountant<BlackJackHandStatus>(testPlayer[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
             testPlayer[0].CasinoBankAccount.chips = 1000;
             bankAccountant.Execute(1000);
             BlackJackGameLogic testBlackJackGame = new BlackJackGameLogic(testPlayer, 4, 100);

@@ -15,24 +15,63 @@ namespace Labs_OOP.Casino.GameLogic.Poker
 {
     public class PokerGameLogic : AbstractGameLogic<PokerHandStatus>
     {
+        public Hand<PokerHandStatus> _tableHand;
         public PokerGameLogic(List<Player<PokerHandStatus>> players, AbstractCardGeneratorStrategy cardGeneratorStrategy) : base(players, cardGeneratorStrategy)
         {
             _players = [.. players];
             _dealer = new Dealer(new Deck(cardGeneratorStrategy));
+            _tableHand = new Hand<PokerHandStatus>(PokerHandStatus.Dealer, 0);
+            foreach(var player in _players)
+            {
+                Hands.Add(new Hand<PokerHandStatus>(PokerHandStatus.Check, 0));
+            }
         }
 
         public void StartNewGame(List<Player<PokerHandStatus>> players, AbstractCardGeneratorStrategy cardGeneratorStrategy)
         {
+            _players = players;
+            _dealer = new Dealer(new Deck(cardGeneratorStrategy));
+            Hands.Clear();
+            foreach (var player in _players)
+            {
+                Hands.Add(new Hand<PokerHandStatus>(PokerHandStatus.Check, 0));
+            }
 
-        }
-
-        public void GiveCards()
-        {
             foreach (var hand in Hands)
             {
-                hand.cards.Add(_dealer.PopCard());
-                hand.cards.Add(_dealer.PopCard());
+                GiveCard(hand);
             }
+        }
+
+        public void PlayGame()
+        {
+            MakeBets(_players);
+            PlayFloop();
+            MakeBets(_players);
+            PlayTurn();
+            MakeBets(_players);
+            PlayRiver();
+            MakeBets(_players);
+            Player<PokerHandStatus> winner = FindWinner();
+        }
+
+        public void PlayFloop()
+        {
+            Player<PokerHandStatus> winner = FindWinner();
+        }
+
+        public void PlayTurn()
+        {
+            Player<PokerHandStatus> winner = FindWinner();
+        }
+
+        public void PlayRiver()
+        {
+            Player<PokerHandStatus> winner = FindWinner();
+        }
+        public void GiveCard(Hand<PokerHandStatus> hand)
+        {
+                hand.cards.Add(_dealer.PopCard());
         }
 
         public void MakeBets(List<Player<PokerHandStatus>> players)
@@ -43,9 +82,9 @@ namespace Labs_OOP.Casino.GameLogic.Poker
             }
         }
 
-        public void FindWinner()
+        public Player<PokerHandStatus> FindWinner()
         {
-
+            throw new NotImplementedException();
         }
 
         public void PayWinner(Player<PokerHandStatus> player)
@@ -58,4 +97,5 @@ namespace Labs_OOP.Casino.GameLogic.Poker
 
         }
     }
+
 }

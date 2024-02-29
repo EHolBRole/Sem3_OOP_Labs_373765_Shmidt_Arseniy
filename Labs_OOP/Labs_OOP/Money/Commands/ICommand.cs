@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace OOP_Labs.Money.Commands
 {
-    public interface ICommand
+    public interface ICommand<T>
     {
-        public bool Execute(Player player, double value);
+        public bool Execute(Player<T> player, double value);
     }
 }

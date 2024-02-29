@@ -8,19 +8,20 @@ using System.Threading.Tasks;
 using OOP_Labs.Money.Commands.CasinoBankCommands;
 using Labs_OOP.Money.BankAccountFabric;
 using Labs_OOP.Money.CasinoBankAccountFabric;
+using Labs_OOP.Casino.GameLogic;
 
 namespace OOP_Labs.Tests.TestLab2
 {
     public class Lab2BlackJackCasinoAccountant
     {
 
-        public Player player;
+        public Player<BlackJackHandStatus> player;
 
         public Lab2BlackJackCasinoAccountant()
         {
             var bankFabric = new OnlineBankFabric();
             var casinoBankFabric = new BlackJackCasinoBankAccountFabric();
-            this.player = new Player(bankFabric.Create(), casinoBankFabric.Create());
+            this.player = new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create());
         }
 
         [Fact]

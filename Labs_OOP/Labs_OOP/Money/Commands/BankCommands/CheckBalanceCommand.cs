@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace OOP_Labs.Money.Commands.BankCommands
 {
-    public class CheckBalanceCommand : AbstractBankCommand
+    public class CheckBalanceCommand<T> : AbstractBankCommand<T>
     {
-        public override bool Execute(Player player, double value)
+        public override bool Execute(Player<T> player, double value)
         {
             if (player.BankAccount.money < value)
                 return false;

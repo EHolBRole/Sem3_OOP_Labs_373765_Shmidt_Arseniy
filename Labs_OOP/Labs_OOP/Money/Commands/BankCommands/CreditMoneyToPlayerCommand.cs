@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace OOP_Labs.Money.Commands.BankCommands
 {
-    public class CreditMoneyToPlayerCommand : AbstractBankCommand
+    public class CreditMoneyToPlayerCommand<T> : AbstractBankCommand<T>
     {
-        public override bool Execute(Player player, double value)
+        public override bool Execute(Player<T> player, double value)
         {
             if (value < 0)
                 return false;

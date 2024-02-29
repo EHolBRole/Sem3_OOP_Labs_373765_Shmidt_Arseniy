@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using OOP_Labs.Cards;
 using Labs_OOP.Casino.GameLogic.BlackJack;
+using Labs_OOP.Casino.GameLogic;
 
 namespace OOP_Labs.Tests.TestLab3
 {
@@ -20,7 +21,7 @@ namespace OOP_Labs.Tests.TestLab3
 
         public BlackJackCasinoBankAccountFabric casinoBankFabric;
 
-        public List<Player> player;
+        public List<Player<BlackJackHandStatus>> player;
 
         public BankAccountant bankAccountant;
 
@@ -30,9 +31,9 @@ namespace OOP_Labs.Tests.TestLab3
         {
             bankFabric = new OnlineBankFabric();
             casinoBankFabric = new BlackJackCasinoBankAccountFabric();
-            player = new List<Player>() { new Player(bankFabric.Create(), casinoBankFabric.Create()) };
+            player = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create()) };
 
-            bankAccountant = new BankAccountant(player[0], new CreditMoneyToPlayerCommand());
+            bankAccountant = new BankAccountant(player[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
             player[0].BankAccount.money = 1000;
             player[0].CasinoBankAccount.chips = 1000;
 
@@ -42,9 +43,9 @@ namespace OOP_Labs.Tests.TestLab3
         [Fact]
         public void BlackJackGame_BlackJackGame_CorrectlyMadeBet()
         {
-            List<Player> testPlayer = new List<Player>() { new Player(bankFabric.Create(), casinoBankFabric.Create()) };
+            List<Player<BlackJackHandStatus>> testPlayer = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create()) };
 
-            bankAccountant = new BankAccountant(testPlayer[0], new CreditMoneyToPlayerCommand());
+            bankAccountant = new BankAccountant(testPlayer[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
             testPlayer[0].CasinoBankAccount.chips = 1000;
             bankAccountant.Execute(1000);
             BlackJackGameLogic testBlackJackGame = new BlackJackGameLogic(testPlayer, 4, 100);
@@ -72,10 +73,10 @@ namespace OOP_Labs.Tests.TestLab3
         public void BlackJackGame_GiveCards_GaveCards()
         {
 
-            List<BlackJackHand> expectedHands = new List<BlackJackHand>() { new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.More, 100), };
+            List<Hand<BlackJackHandStatus>> expectedHands = new List<Hand<BlackJackHandStatus>>() { new Hand < BlackJackHandStatus >(BlackJackHandStatus.More, 100),
+                                                          new Hand < BlackJackHandStatus >(BlackJackHandStatus.More, 100),
+                                                          new Hand < BlackJackHandStatus >(BlackJackHandStatus.More, 100),
+                                                          new Hand < BlackJackHandStatus >(BlackJackHandStatus.More, 100), };
             expectedHands[0].cards.Add(new Card(CardSuit.Hearts, 8));
             expectedHands[0].cards.Add(new Card(CardSuit.Clubs, 9));
             expectedHands[1].cards.Add(new Card(CardSuit.Clubs, 2));
@@ -104,10 +105,10 @@ namespace OOP_Labs.Tests.TestLab3
         {
             blackJackGame.GiveCards();
 
-            List<BlackJackHand> expectedHands = new List<BlackJackHand>() { new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.More, 100), };
+            List<Hand<BlackJackHandStatus>> expectedHands = new List<Hand<BlackJackHandStatus>>() { new Hand<BlackJackHandStatus>(BlackJackHandStatus.More, 100),
+                                                          new Hand <BlackJackHandStatus>(BlackJackHandStatus.More, 100),
+                                                          new Hand <BlackJackHandStatus>(BlackJackHandStatus.More, 100),
+                                                          new Hand <BlackJackHandStatus>(BlackJackHandStatus.More, 100), };
 
             expectedHands[0].currentValue = 8;
             expectedHands[1].currentValue = 2;
@@ -132,7 +133,7 @@ namespace OOP_Labs.Tests.TestLab3
             blackJackGame.CalculateHands(blackJackGame.Hands);
             blackJackGame.DealerHand.cards.Add(new Card(CardSuit.Spades, 10));
             blackJackGame.DealerHand.cards.Add(new Card(CardSuit.Spades, 11));
-            blackJackGame.CalculateHands(new List<BlackJackHand>() { blackJackGame.DealerHand });
+            blackJackGame.CalculateHands(new List<Hand<BlackJackHandStatus>>() { blackJackGame.DealerHand });
             blackJackGame.FinishGame(player[0]);
             
             Assert.Equal(600, player[0].CasinoBankAccount.chips);
@@ -142,11 +143,11 @@ namespace OOP_Labs.Tests.TestLab3
         [Fact]
         public void BlackJackGame_PlayGame_CorrectlyPlayedGame()
         {
-            List<BlackJackHand> expectedHands = new List<BlackJackHand>() { new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.More, 100),
-                                                          new BlackJackHand(BlackJackHandStatus.Enough, 100), };
-            BlackJackHand expectedDealerHand = new BlackJackHand(BlackJackHandStatus.Dealer, 0);
+            List<Hand<BlackJackHandStatus>> expectedHands = new List<Hand<BlackJackHandStatus>>() { new Hand < BlackJackHandStatus >(BlackJackHandStatus.More, 100),
+                                                          new Hand < BlackJackHandStatus >(BlackJackHandStatus.More, 100),
+                                                          new Hand < BlackJackHandStatus >(BlackJackHandStatus.More, 100),
+                                                          new Hand < BlackJackHandStatus >(BlackJackHandStatus.Enough, 100), };
+            Hand<BlackJackHandStatus> expectedDealerHand = new Hand<BlackJackHandStatus>(BlackJackHandStatus.Dealer, 0);
 
             expectedDealerHand.cards.Add(new Card(CardSuit.Hearts, 8));
             expectedDealerHand.cards.Add(new Card(CardSuit.Hearts, 2));

@@ -6,11 +6,11 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labs_OOP.Casino.GameLogic.BlackJack
+namespace Labs_OOP.Casino.GameLogic
 {
-    public class BlackJackHand
+    public class Hand<T>
     {
-        public BlackJackHandStatus status;
+        public T status;
 
         public List<Card> cards;
 
@@ -18,7 +18,7 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
 
         public int currentValue;
 
-        public BlackJackHand(BlackJackHandStatus status, int bet)
+        public Hand(T status, int bet)
         {
             this.status = status;
             cards = new List<Card>();

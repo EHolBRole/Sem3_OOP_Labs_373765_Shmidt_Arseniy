@@ -12,7 +12,7 @@ namespace Labs_OOP.Casino.GameLogic
 {
     public abstract class AbstractGameLogic<T>
     {
-        protected List<Player<T>> _players;
+        public List<Player<T>> _players;
         protected Dealer _dealer;
 
         public List<Hand<T>> Hands { get; protected set; }

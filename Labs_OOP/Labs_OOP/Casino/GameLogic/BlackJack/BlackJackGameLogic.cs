@@ -23,7 +23,6 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
         private const int DEALER_MAX_CARD_VALUE = 17;
 
         private int _numberOfHands;
-        private bool _betMade; // Delete _betMade
 
 
         public Hand<BlackJackHandStatus> DealerHand { get; private set; }
@@ -38,11 +37,11 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
                     if (new BankAccountant(player, new CheckBalanceCommand<BlackJackHandStatus>()).Execute(initialBet))
                     {
                         new BankAccountant(player, new CreditMoneyFromPlayerCommand< BlackJackHandStatus >()).Execute(initialBet);
-                        _betMade = true;
+                        player.isPlaying = true;
                     }
                     else
                     {
-                        _betMade = false;
+                        player.isPlaying = false;
                     }
                 }
             }
@@ -60,30 +59,25 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
 
         public bool PlayGame()
         {
-            if (_betMade)
+            foreach (var player in _players)
             {
-                foreach (var player in _players)
+                if (!player.isPlaying)
+                    continue;
+                if (DealerHand.currentValue < DEALER_MAX_CARD_VALUE)
+                    DealerHand.cards.Add(_dealer.PopCard());
+                else
                 {
-                    if (!player.isPlaying)
-                        continue;
-                    if (DealerHand.currentValue < DEALER_MAX_CARD_VALUE)
-                        DealerHand.cards.Add(_dealer.PopCard());
-                    else
-                    {
-                        FinishGame(player);
-                        player.isPlaying = false;
-                        continue;
-                    }
-                    player.PerformeGameOperation(new BlackJackMakePlayerMoveCommand(), this);
-                    GiveCards();
-                    CalculateHands(Hands);
-                    CalculateHands(new List<Hand<BlackJackHandStatus>>() { DealerHand });
-                    PlayGame();
-                 }
-                return true;
+                    FinishGame(player);
+                    player.isPlaying = false;
+                    continue;
+                }
+                player.PerformeGameOperation(new BlackJackMakePlayerMoveCommand(), this);
+                GiveCards();
+                CalculateHands(Hands);
+                CalculateHands(new List<Hand<BlackJackHandStatus>>() { DealerHand });
+                PlayGame();
             }
-            else
-                return false;
+            return true;
         }
 
         public void GiveCards()

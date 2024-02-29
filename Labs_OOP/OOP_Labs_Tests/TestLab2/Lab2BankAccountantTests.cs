@@ -25,7 +25,7 @@ namespace OOP_Labs.Tests.TestLab2
         [Fact]
         public void BankAccountant_CreditMoneyToPlayer_CreditedMoneyToPlayer()
         {
-            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
+            var bankAccountant = new BankAccountant<BlackJackHandStatus>(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
             bankAccountant.Execute(100);
 
             bankAccountant.Execute(-100);
@@ -41,11 +41,11 @@ namespace OOP_Labs.Tests.TestLab2
         [Fact]
         public void BankAccountant_CreditMoneyFromPlayer_CreditedMoneyFromPlayer()
         {
-            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
+            var bankAccountant = new BankAccountant<BlackJackHandStatus>(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
 
             bankAccountant.Execute(10000);
 
-            bankAccountant = new BankAccountant(player, new CreditMoneyFromPlayerCommand<BlackJackHandStatus>());
+            bankAccountant = new BankAccountant<BlackJackHandStatus>(player, new CreditMoneyFromPlayerCommand<BlackJackHandStatus>());
 
             bankAccountant.Execute(100);
             bankAccountant.Execute(-100);
@@ -61,11 +61,11 @@ namespace OOP_Labs.Tests.TestLab2
 
         public void BankAccountant_CheckBalance_CorrectlyCheckedBalance()
         {
-            var bankAccountant = new BankAccountant(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
+            var bankAccountant = new BankAccountant<BlackJackHandStatus>(player, new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
 
             bankAccountant.Execute(100);
 
-            bankAccountant = new BankAccountant(player, new CheckBalanceCommand<BlackJackHandStatus>());
+            bankAccountant = new BankAccountant<BlackJackHandStatus>(player, new CheckBalanceCommand<BlackJackHandStatus>());
 
             bool test1 = bankAccountant.Execute(100);
             bool test2 = bankAccountant.Execute(5);

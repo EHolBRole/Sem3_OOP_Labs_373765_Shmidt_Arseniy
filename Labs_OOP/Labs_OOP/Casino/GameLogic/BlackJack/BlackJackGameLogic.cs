@@ -34,9 +34,9 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack
             {
                 for (int hand = 0; hand < numberOfHands; hand++)
                 {
-                    if (new BankAccountant(player, new CheckBalanceCommand<BlackJackHandStatus>()).Execute(initialBet))
+                    if (new BankAccountant<BlackJackHandStatus>(player, new CheckBalanceCommand<BlackJackHandStatus>()).Execute(initialBet))
                     {
-                        new BankAccountant(player, new CreditMoneyFromPlayerCommand< BlackJackHandStatus >()).Execute(initialBet);
+                        new BankAccountant<BlackJackHandStatus>(player, new CreditMoneyFromPlayerCommand< BlackJackHandStatus >()).Execute(initialBet);
                         player.isPlaying = true;
                     }
                     else

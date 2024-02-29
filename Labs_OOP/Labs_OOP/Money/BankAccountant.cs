@@ -9,7 +9,7 @@ namespace labs_OOP.Casino
 {
     public class BankAccountant
     {
-        private Player _player; //ReadOnly плюс _
+        private Player _player;
 
         private AbstractBankCommand _abstractBankCommand;
 

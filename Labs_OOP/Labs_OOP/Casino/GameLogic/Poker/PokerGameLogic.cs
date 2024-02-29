@@ -12,26 +12,28 @@ using System.Threading.Tasks;
 
 namespace Labs_OOP.Casino.GameLogic.Poker
 {
-    public class PokerGameLogic : AbstractGameLogic
+    public class PokerGameLogic : AbstractGameLogic<PokerHandStatus>
     {
-        public PokerGameLogic(List<Player> players, AbstractCardGeneratorStrategy cardGeneratorStrategy) : base(players, cardGeneratorStrategy)
+        public PokerGameLogic(List<Player<PokerHandStatus>> players, AbstractCardGeneratorStrategy cardGeneratorStrategy) : base(players, cardGeneratorStrategy)
         {
             _players = [.. players];
             _dealer = new Dealer(new Deck(cardGeneratorStrategy));
-            Hands = new List<BlackJackHand>();
         }
 
-        public void StartNewGame(List<Player> players, AbstractCardGeneratorStrategy cardGeneratorStrategy)
+        public void StartNewGame(List<Player<PokerHandStatus>> players, AbstractCardGeneratorStrategy cardGeneratorStrategy)
         {
 
         }
 
         public void GiveCards()
         {
+            foreach (var hand in Hands)
+            {
 
+            }
         }
 
-        public void MakeBets()
+        public void MakeBets(List<Player<PokerHandStatus>> players)
         {
 
         }
@@ -41,12 +43,12 @@ namespace Labs_OOP.Casino.GameLogic.Poker
 
         }
 
-        public void PayWinner(Player player)
+        public void PayWinner(Player<PokerHandStatus> player)
         {
 
         }
 
-        public void PayLoosers(List<Player> players)
+        public void PayLoosers(List<Player<PokerHandStatus>> players)
         {
 
         }

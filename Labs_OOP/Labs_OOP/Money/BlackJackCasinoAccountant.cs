@@ -12,9 +12,9 @@ namespace labs_OOP.Casino
     {
         private Player<BlackJackHandStatus> _player;
         
-        private AbstractCasinoBankCommand _casinoBankCommand;
+        private AbstractCasinoBankCommand<BlackJackHandStatus> _casinoBankCommand;
 
-        public BlackJackCasinoAccountant(Player<BlackJackHandStatus> player, AbstractCasinoBankCommand abstractCasinoBankCommand)
+        public BlackJackCasinoAccountant(Player<BlackJackHandStatus> player, AbstractCasinoBankCommand<BlackJackHandStatus> abstractCasinoBankCommand)
         {
             this._player = player;
 

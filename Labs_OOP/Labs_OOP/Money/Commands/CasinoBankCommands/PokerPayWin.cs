@@ -1,4 +1,5 @@
 ﻿using labs_OOP;
+using Labs_OOP.Casino.GameLogic.Poker;
 using OOP_Labs.Money.Commands.CasinoBankCommands;
 using System;
 using System.Collections.Generic;
@@ -8,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Labs_OOP.Money.Commands.CasinoBankCommands
 {
-    public class PokerPayWin : AbstractCasinoBankCommand
+    public class PokerPayWin : AbstractCasinoBankCommand<PokerHandStatus>
     {
-        public override bool Execute(Player player, double value)
+        public override bool Execute(Player<PokerHandStatus> player, double value)
         {
             if (value < 0)
                 return false;

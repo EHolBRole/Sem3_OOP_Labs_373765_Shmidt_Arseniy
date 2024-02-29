@@ -20,7 +20,7 @@ namespace OOP_Labs.Tests.TestLab2
         {
             var bankFabric = new OnlineBankFabric();
             var casinoBankFabric = new BlackJackCasinoBankAccountFabric();
-            this.player = new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create());
+            this.player = new Player<BlackJackHandStatus>(1, bankFabric.Create(), casinoBankFabric.Create());
         }
         [Fact]
         public void BankAccountant_CreditMoneyToPlayer_CreditedMoneyToPlayer()

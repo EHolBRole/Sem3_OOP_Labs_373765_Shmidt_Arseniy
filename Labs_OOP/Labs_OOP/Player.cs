@@ -17,14 +17,16 @@ namespace labs_OOP
     {
         public bool isPlaying;
 
+        public int playerSeat;
         public AbstractBankAccount BankAccount { get; private set; }
 
         public AbstractCasinoBankAccount CasinoBankAccount { get; private set; }
 
-        public Player(AbstractBankAccount abstactBankAccount, AbstractCasinoBankAccount abstractCasinoBankAccount)
+        public Player(int playerSeat, AbstractBankAccount abstactBankAccount, AbstractCasinoBankAccount abstractCasinoBankAccount)
         {
             isPlaying = true;
             BankAccount = abstactBankAccount;
+            this.playerSeat = playerSeat;
 
             CasinoBankAccount = abstractCasinoBankAccount;
         }
@@ -36,7 +38,7 @@ namespace labs_OOP
 
         public bool PerformeGameOperation(IGameCommand<T> gameCommand, AbstractGameLogic<T> gameLogic)
         {
-            gameCommand.Execute(gameLogic);
+            gameCommand.Execute(gameLogic, this.playerSeat);
             return true;
         }
     }

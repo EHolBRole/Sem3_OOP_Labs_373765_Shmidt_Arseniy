@@ -31,7 +31,7 @@ namespace OOP_Labs.Tests.TestLab3
         {
             bankFabric = new OnlineBankFabric();
             casinoBankFabric = new BlackJackCasinoBankAccountFabric();
-            player = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create()) };
+            player = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(1, bankFabric.Create(), casinoBankFabric.Create()) };
 
             bankAccountant = new BankAccountant(player[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
             player[0].BankAccount.money = 1000;
@@ -43,7 +43,7 @@ namespace OOP_Labs.Tests.TestLab3
         [Fact]
         public void BlackJackGame_BlackJackGame_CorrectlyMadeBet()
         {
-            List<Player<BlackJackHandStatus>> testPlayer = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(bankFabric.Create(), casinoBankFabric.Create()) };
+            List<Player<BlackJackHandStatus>> testPlayer = new List<Player<BlackJackHandStatus>>() { new Player<BlackJackHandStatus>(1, bankFabric.Create(), casinoBankFabric.Create()) };
 
             bankAccountant = new BankAccountant(testPlayer[0], new CreditMoneyToPlayerCommand<BlackJackHandStatus>());
             testPlayer[0].CasinoBankAccount.chips = 1000;

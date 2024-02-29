@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Labs_OOP.Casino.GameLogic.BlackJack
+namespace Labs_OOP.Casino.GameLogic
 {
-    public class BlackJackUserInputHandler
+    public class UserInputHandler
     {
         public virtual string GetUserInput()
         {

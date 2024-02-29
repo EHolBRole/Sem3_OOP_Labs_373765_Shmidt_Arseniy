@@ -10,6 +10,6 @@ namespace Labs_OOP.Casino.GameLogic
 {
     public interface IGameCommand<T>
     {
-        public bool Execute(AbstractGameLogic<T> game);
+        public bool Execute(AbstractGameLogic<T> game, int playerSit);
     }
 }

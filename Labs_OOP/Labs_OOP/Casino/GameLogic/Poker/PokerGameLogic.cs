@@ -1,6 +1,7 @@
 ﻿using labs_OOP;
 using Labs_OOP.Cards.CardGeneratorStrategy;
 using Labs_OOP.Casino.GameLogic.BlackJack;
+using Labs_OOP.Casino.GameLogic.Poker.PokerCommands;
 using OOP_Labs.Cards;
 using OOP_Labs.Cards.CardGeneratorCommands;
 using OOP_Labs.Casino;
@@ -29,13 +30,17 @@ namespace Labs_OOP.Casino.GameLogic.Poker
         {
             foreach (var hand in Hands)
             {
-
+                hand.cards.Add(_dealer.PopCard());
+                hand.cards.Add(_dealer.PopCard());
             }
         }
 
         public void MakeBets(List<Player<PokerHandStatus>> players)
         {
-
+            foreach (var player in players)
+            {
+                player.PerformeGameOperation(new PokerMakeBetCommand(), this);
+            }
         }
 
         public void FindWinner()

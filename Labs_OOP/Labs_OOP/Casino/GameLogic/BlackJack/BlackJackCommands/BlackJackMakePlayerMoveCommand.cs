@@ -8,11 +8,11 @@ namespace Labs_OOP.Casino.GameLogic.BlackJack.BlackJackCommands
 {
     public class BlackJackMakePlayerMoveCommand : IGameCommand<BlackJackHandStatus>
     {
-        BlackJackUserInputHandler userInputHandler;
+        UserInputHandler userInputHandler;
 
         public BlackJackMakePlayerMoveCommand()
         {
-            userInputHandler = new BlackJackUserInputHandler();
+            userInputHandler = new UserInputHandler();
         }
 
         public bool Execute(AbstractGameLogic<BlackJackHandStatus> game)

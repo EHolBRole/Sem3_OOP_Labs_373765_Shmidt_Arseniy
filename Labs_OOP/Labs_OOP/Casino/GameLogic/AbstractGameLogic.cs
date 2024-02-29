@@ -20,7 +20,7 @@ namespace Labs_OOP.Casino.GameLogic
 
         public AbstractGameLogic(List<Player<T>> players, AbstractCardGeneratorStrategy cardGeneratorStrategy)
         {
-            _players = [.. players];
+            _players = players;
             _dealer = new Dealer(new Deck(cardGeneratorStrategy));
             Hands = new List<Hand<T>>();
 

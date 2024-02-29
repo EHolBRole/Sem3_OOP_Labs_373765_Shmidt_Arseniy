@@ -7,8 +7,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Casino\GameLogic\Poker\Combinations\" />
-  </ItemGroup>
-
 </Project>
